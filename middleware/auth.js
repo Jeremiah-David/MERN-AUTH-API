@@ -40,3 +40,7 @@ const createUserToken = (req, user) => {
         return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 3600} )
     }
 }
+
+const requireToken = passport.authenticate('jwt', {session: false})
+
+module.exports = { createUserToken, requireToken }
