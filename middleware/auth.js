@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const options = {
-    secretOrKey: 'some string value only your app knows',
+    secretOrKey: process.env.JWT_SECRET,
 
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 }
@@ -37,6 +37,6 @@ const createUserToken = (req, user) => {
             email: user.email,
             motto: user.motto
         }
-        return 
+        return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 3600} )
     }
 }
